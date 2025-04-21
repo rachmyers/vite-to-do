@@ -1,5 +1,5 @@
 import React from 'react';
-import { getAllTasks } from '@/lib/actions/task.actions';
+import { getAllTasks } from '../actions/actions';
 
 const Todos = async () => {
     try {

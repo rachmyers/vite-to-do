@@ -20,3 +20,16 @@ const getAllTasks = async () => {
 };
 
 export default getAllTasks;
+
+
+export const createTask = async () => {
+    // Simple PUT request with a JSON body using fetch
+    const requestOptions = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: 'React PUT Request Example' })
+    };
+    fetch('https://localhost:7293/api/todoitems/{id}', requestOptions)
+        .then(response => response.json())
+        .then(data => this.setState({ postId: data.id }));
+};

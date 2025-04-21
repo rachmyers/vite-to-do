@@ -1,9 +1,10 @@
-import React, {useActionState} from 'react';
-import getAllTasks from '../actions/actions';
-import { useFormStatus } from 'react-dom';
+import React from 'react';
+import { createTask } from '../actions/actions';
+import { useFormStatus, useFormState } from 'react-dom';
+import Todos from './Todos';
 
-async function initialState (previousState) {
-  return previousState + 1;
+const initialState = {
+  message: null
 }
 
 const SubmitBtn = () => { 
@@ -16,25 +17,26 @@ const SubmitBtn = () => {
   )
 }
 
-function TodoForm() {
-  const [state, formAction] = useActionState(getAllTasks, initialState);
+const TodoForm = () => {
+  const [state] = useFormState(createTask, initialState)
   return (
-    <form>
-    {state}
- 
-      {state.Message ? <p className="mb-2">{getAllTasks}</p> : null}
+    <div>
+    <form action = {createTask}>
+      {state.Message ? <p className="mb-2">{state.message}</p> : null}
       <div className='join w-full mb-8'>
         <input 
           type="text"
           className="input input-bordered join-item w-full"
           placeholder="type here"
           name="content"
-          required
-          value={getAllTasks}  
+          required  
         />
-        <SubmitBtn formAction={formAction} />
+        <SubmitBtn />
       </div>
     </form>
+    <Todos />
+    </div>
   )
 }
+
 export default TodoForm
