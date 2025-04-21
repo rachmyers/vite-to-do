@@ -1,9 +1,23 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { getAllTasks } from '../actions/actions';
 
-const Todos = async () => {
+
+const Todos = () => {
+    
+    const [tasks, setTasks] = useState([])
+
+    useEffect(() => {
+        const fetchData = async() => setTasks(await getAllTasks())
+        //Line 11 same as lines 10 and 12, calling the function. It is a self-invoking function
+        //(async() => setTasks(await getAllTasks()))()
+       fetchData() 
+    }, 
+    //empty square brackets means it only runs once
+   [])
+ 
     try {
-        const tasks = await getAllTasks();
+
+       // const tasks = await getAllTasks();
 
         if (tasks.length === 0) {
             return <h2 className="mt-8 font-medium text-lg">No tasks to show</h2>;

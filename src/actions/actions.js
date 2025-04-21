@@ -1,4 +1,4 @@
-const getAllTasks = async () => {
+export const getAllTasks = async () => {
     try {
         const response = await fetch('https://localhost:7293/api/todoitems', {
             method: 'GET',
@@ -19,7 +19,6 @@ const getAllTasks = async () => {
     }
 };
 
-export default getAllTasks;
 
 
 export const createTask = async () => {
