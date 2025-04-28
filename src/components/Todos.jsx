@@ -7,7 +7,7 @@ const Todos = () => {
     const [tasks, setTasks] = useState([])
 
     useEffect(() => {
-        const fetchData = async() => setTasks(await getAllTasks())
+        const fetchData = async () => setTasks(await getAllTasks())
         //Line 11 same as lines 10 and 12, calling the function. It is a self-invoking function
         //(async() => setTasks(await getAllTasks()))()
        fetchData() 
@@ -26,21 +26,26 @@ const Todos = () => {
         return (
             <ul>
                 {tasks.map((task) => (
+                    
                     <li
                         key={task.id}
                         className="flex justify-between items-center px-6 py-4 mb-4 border border-base-300 rounded-lg shadow-lg"
                     >
                         <h2 className={`capitalize ${task.completed ? 'line-through' : ''}`}>
-                            {task.content}
+                            {task.name}
                         </h2>
                     </li>
                 ))}
             </ul>
+            
         );
-    } catch (error) {
+       
+    } 
+   
+    catch (error) {
         // Log the error to the console
         console.error('Error rendering tasks:', error);
-
+        console.log("tasks", tasks)
         // Provide a fallback UI
         return (
             <div className="mt-8 text-center">
@@ -49,6 +54,7 @@ const Todos = () => {
             </div>
         );
     }
+    
 };
 
 export default Todos;

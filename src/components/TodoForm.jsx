@@ -1,6 +1,8 @@
-import React from 'react';
-import { createTask } from '../actions/actions';
+import React, {useState} from 'react';
+import { createTask, getAllTasks } from '../actions/actions';
 import { useFormStatus, useFormState } from 'react-dom';
+import { useDispatch } from 'react-redux';
+import {head} from 'ramda';
 import Todos from './Todos';
 
 const initialState = {
@@ -17,8 +19,24 @@ const SubmitBtn = () => {
   )
 }
 
-const TodoForm = () => {
+const TodoForm = ({onError}) => {
   const [state] = useFormState(createTask, initialState)
+  const [todoName, setTodoName] = useState("")
+  const dispatch = useDispatch()
+  // const handleChange = async (event) => {
+  //   const todoItem = Array.from(event.target.todoItem);
+  //   const item = head(todoItem);
+  //   try {
+  //     const formData = new formData();
+  //     formData.append("item", item);
+  //     dispatch(getAllTasks)
+  //   }
+  //   catch (error) {
+  //     if(onError) {
+  //       onError(error)
+  //     }
+  //   }
+  }
   return (
     <div>
     <form action = {createTask}>
@@ -28,7 +46,8 @@ const TodoForm = () => {
           type="text"
           className="input input-bordered join-item w-full"
           placeholder="type here"
-          name="content"
+          value={todoName}
+          onChange={ handleChange }
           required  
         />
         <SubmitBtn />
