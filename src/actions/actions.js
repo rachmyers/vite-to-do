@@ -22,35 +22,24 @@ export const getAllTasks = async () => {
 
 
 
-export const createTask = async (payload) => {
-debugger;
-    //const [id, setId] = useState('');
-    //const [content, setContent] = useState('');
-
+export const createTask = async (taskText) => {
     try {
-        const response = await fetch(`https://localhost:7293/api/todoitems/`, {
-           
-               method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                id: 1,
-                 name: "test",
-                 isComplete: false
-            })
-            
-        });
-        
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        return await response.json();
-    } catch (error) {
-        console.error('Error fetching tasks:', error);
-        throw error; // Re-throw the error to handle it where the function is called
-    }
+      const response = await fetch('https://localhost:7293/api/todoitems', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: taskText }),
+      });
   
-};
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Failed to create task:', error);
+      throw error; // rethrow to handle in UI
+    }
+  };

@@ -1,8 +1,6 @@
-import React, {useState} from 'react';
-import { createTask, getAllTasks } from '../actions/actions';
+import React, { useState} from 'react';
+import { createTask } from '../actions/actions';
 import { useFormStatus, useFormState } from 'react-dom';
-import { useDispatch } from 'react-redux';
-import {head} from 'ramda';
 import Todos from './Todos';
 
 const initialState = {
@@ -19,43 +17,40 @@ const SubmitBtn = () => {
   )
 }
 
-const TodoForm = ({onError}) => {
-  const [state] = useFormState(createTask, initialState)
-  const [todoName, setTodoName] = useState("")
-  const dispatch = useDispatch()
-  // const handleChange = async (event) => {
-  //   const todoItem = Array.from(event.target.todoItem);
-  //   const item = head(todoItem);
-  //   try {
-  //     const formData = new formData();
-  //     formData.append("item", item);
-  //     dispatch(getAllTasks)
-  //   }
-  //   catch (error) {
-  //     if(onError) {
-  //       onError(error)
-  //     }
-  //   }
-  }
+const TodoForm = () => {
+  const [task, setTask] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!task.trim()) return;
+
+    try {
+      const newTodo = await createTask(task.trim());
+      console.log('Created task:', newTodo);
+      setTask('');
+    } catch (error) {
+      console.error('Error creating task in UI:', error);
+    }
+  };
+
   return (
     <div>
-    <form action = {createTask}>
-      {state.Message ? <p className="mb-2">{state.message}</p> : null}
-      <div className='join w-full mb-8'>
-        <input 
-          type="text"
-          className="input input-bordered join-item w-full"
-          placeholder="type here"
-          value={todoName}
-          onChange={ handleChange }
-          required  
-        />
-        <SubmitBtn />
-      </div>
-    </form>
-    <Todos />
+      <form onSubmit={handleSubmit}>
+        <div className="join w-full mb-8">
+          <input
+            type="text"
+            value={task}
+            onChange={(e) => setTask(e.target.value)}
+            className="input input-bordered join-item w-full"
+            placeholder="type here"
+            required
+          />
+          <SubmitBtn />
+        </div>
+      </form>
+      <Todos />
     </div>
-  )
-}
+  );
+};
 
-export default TodoForm
+export default TodoForm;

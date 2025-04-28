@@ -13,7 +13,7 @@ const Todos = () => {
        fetchData() 
     }, 
     //empty square brackets means it only runs once
-   [])
+   )
  
     try {
 
