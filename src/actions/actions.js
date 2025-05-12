@@ -43,3 +43,55 @@ export const createTask = async (taskText) => {
       throw error; // rethrow to handle in UI
     }
   };
+
+  export const deleteTask = async (taskId) => {
+    try {
+      const response = await fetch(`https://localhost:7293/api/todoitems/${taskId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+  
+      // Only parse JSON if there is content
+      const text = await response.text();
+      return text ? JSON.parse(text) : null;
+    } catch (error) {
+      console.error('Failed to delete task:', error);
+      throw error;
+    }
+  };
+
+
+  export const updateTask = async (formData) => {
+    try {
+      const id= formData.get('id');
+    const content = formData.get('content');
+    const completed = formData.get('completed');
+      const response = await fetch(`https://localhost:7293/api/todoitems/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: {
+            name: content,
+            isComplete: completed
+        }
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+  
+      // Only parse JSON if there is content
+      const text = await response.text();
+      return text ? JSON.parse(text) : null;
+    } catch (error) {
+      console.error('Failed to update task:', error);
+      throw error;
+    }
+  };

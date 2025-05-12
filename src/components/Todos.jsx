@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { getAllTasks } from '../actions/actions';
+import DeleteForm from './DeleteForm';
+import EditButton from './EditButton.jsx';
 
 
 const Todos = () => {
@@ -34,6 +36,8 @@ const Todos = () => {
                         <h2 className={`capitalize ${task.completed ? 'line-through' : ''}`}>
                             {task.name}
                         </h2>
+                        <DeleteForm id={task.id}/>
+                        <EditButton task={task} />
                     </li>
                 ))}
             </ul>
