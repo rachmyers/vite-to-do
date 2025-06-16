@@ -9,7 +9,7 @@ const EditForm = ({id, content, completed}) => {
     //if (!task) {return;} 
    //const {id, content, completed} = task;
    //const [tasks, setTasks] = useState([])
-   
+   console.log(id);
    return (
 
    <form 

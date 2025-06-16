@@ -4,6 +4,7 @@ import EditForm from './EditForm'
 
 
 const EditButton = ({task}) => {
+    console.log(task);
     const [showEditForm, setShowEditForm] = useState(false)
     if (!task) {return;} 
    const handleToggle = () => {
