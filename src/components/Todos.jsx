@@ -37,7 +37,7 @@ const Todos = () => {
                             {task.name}
                         </h2>
                         <DeleteForm id={task.id}/>
-                        <EditButton task={task} />
+                        <EditButton task={task.id} />
                     </li>
                 ))}
             </ul>

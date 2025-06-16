@@ -9,7 +9,7 @@ const EditButton = ({task}) => {
    const handleToggle = () => {
     setShowEditForm(!showEditForm)
    }
-   return ( showEditForm ? <EditForm /> : <button onClick={handleToggle} className='btn btn-primary btn-block btn-sm max-w-sm p-12 border border-base-300 rounded-md'>edit</button>)
+   return ( showEditForm ? <EditForm id={task.id} /> : <button onClick={handleToggle} className='btn btn-primary btn-block btn-sm max-w-sm p-12 border border-base-300 rounded-md'>edit</button>)
 
   
 }

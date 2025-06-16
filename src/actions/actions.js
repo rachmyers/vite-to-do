@@ -67,27 +67,28 @@ export const createTask = async (taskText) => {
   };
 
 
-  export const updateTask = async (formData) => {
+  export const updateTask = async ({id}) => {
     try {
-      const id= formData.get('id');
-    const content = formData.get('content');
-    const completed = formData.get('completed');
+     // const id = 3;
+      const getContent = formData.get('text');
+      const completed = formData.get('completed') === 'true'; // Convert to boolean if needed
+  
       const response = await fetch(`https://localhost:7293/api/todoitems/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: {
-            name: content,
-            isComplete: completed
-        }
+        body: JSON.stringify({
+          id: id,
+          name: getContent,
+          isComplete: completed
+        }),
       });
   
       if (!response.ok) {
         throw new Error(`HTTP error: ${response.status}`);
       }
   
-      // Only parse JSON if there is content
       const text = await response.text();
       return text ? JSON.parse(text) : null;
     } catch (error) {
@@ -95,3 +96,4 @@ export const createTask = async (taskText) => {
       throw error;
     }
   };
+  
