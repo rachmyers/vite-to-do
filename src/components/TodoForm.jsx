@@ -1,5 +1,5 @@
-import React, { useState} from 'react';
-import { createTask } from '../actions/actions';
+import React, { useState, useEffect} from 'react';
+import { createTask, getAllTasks } from '../actions/actions';
 import { useFormStatus, useFormState } from 'react-dom';
 import Todos from './Todos';
 
@@ -18,7 +18,17 @@ const SubmitBtn = () => {
 }
 
 const TodoForm = () => {
+  const [tasks, setTasks] = useState([])
   const [task, setTask] = useState('');
+  useEffect(() => {
+    const fetchData = async () => setTasks(await getAllTasks())
+    //Line 11 same as lines 10 and 12, calling the function. It is a self-invoking function
+    // eslint-disable-next-line no-unexpected-multiline
+    //(async() => setTasks(await getAllTasks()))()
+   fetchData() 
+}, []
+//empty square brackets means it only runs once
+)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +58,7 @@ const TodoForm = () => {
           <SubmitBtn />
         </div>
       </form>
-      <Todos />
+      <Todos tasks={tasks}/>
     </div>
   );
 };

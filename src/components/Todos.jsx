@@ -4,19 +4,12 @@ import DeleteForm from './DeleteForm';
 import EditButton from './EditButton.jsx';
 
 
-const Todos = () => {
+const Todos = ({tasks}) => {
     
-    const [tasks, setTasks] = useState([])
-    const [count, setCount] = useState(0);
-    console.log(tasks);
-    useEffect(() => {
-        const fetchData = async () => setTasks(await getAllTasks())
-        //Line 11 same as lines 10 and 12, calling the function. It is a self-invoking function
-        //(async() => setTasks(await getAllTasks()))()
-       fetchData() 
-    }, [count]
-    //empty square brackets means it only runs once
-   )
+  
+    //const [count, setCount] = useState(0);
+  //  console.log(tasks);
+
  
     try {
 
@@ -28,7 +21,7 @@ const Todos = () => {
 
         return (
             <>
-            <button onClick={() => setCount(count + 1)}>{count}</button>
+          
             <ul>
                 {tasks.map((task) => (
                     
