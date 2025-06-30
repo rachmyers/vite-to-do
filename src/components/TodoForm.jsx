@@ -38,6 +38,7 @@ const TodoForm = () => {
       const newTodo = await createTask(task.trim());
       console.log('Created task:', newTodo);
       setTask('');
+      setTasks(await getAllTasks())
     } catch (error) {
       console.error('Error creating task in UI:', error);
     }
@@ -58,7 +59,7 @@ const TodoForm = () => {
           <SubmitBtn />
         </div>
       </form>
-      <Todos tasks={tasks}/>
+      <Todos tasks={tasks} setTasks={setTasks}/>
     </div>
   );
 };

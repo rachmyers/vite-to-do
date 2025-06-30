@@ -4,7 +4,7 @@ import DeleteForm from './DeleteForm';
 import EditButton from './EditButton.jsx';
 
 
-const Todos = ({tasks}) => {
+const Todos = ({tasks, setTasks}) => {
     
   
     //const [count, setCount] = useState(0);
@@ -14,7 +14,7 @@ const Todos = ({tasks}) => {
     try {
 
        // const tasks = await getAllTasks();
-
+        console.log("tasks length:" + tasks.length);
         if (tasks.length === 0) {
             return <h2 className="mt-8 font-medium text-lg">No tasks to show</h2>;
         }
@@ -32,7 +32,7 @@ const Todos = ({tasks}) => {
                         <h2 className={`capitalize ${task.completed ? 'line-through' : ''}`}>
                             {task.name}
                         </h2>
-                        <DeleteForm id={task.id}/>
+                        <DeleteForm id={task.id} setTasks={setTasks}/>
                         <EditButton task={task.id} />
                     </li>
                 ))}

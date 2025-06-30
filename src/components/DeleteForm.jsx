@@ -1,14 +1,14 @@
 import React from 'react'
-import { deleteTask } from '../actions/actions';
+import { deleteTask, getAllTasks } from '../actions/actions';
 
-const DeleteForm = ({ id, onDelete }) => {
+const DeleteForm = ({ id, setTasks }) => {
   const handleDelete = async (e) => {
     e.preventDefault(); // prevent form submission
 
     try {
       await deleteTask(id);
-      if (onDelete) {
-        onDelete(id); // notify parent to remove the item from the list
+      if (setTasks) {
+        setTasks(await getAllTasks()) // notify parent to remove the item from the list
       }
     } catch (error) {
       alert('Failed to delete task.' + error);
