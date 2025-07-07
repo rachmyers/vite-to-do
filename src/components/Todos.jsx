@@ -4,9 +4,13 @@ import DeleteForm from './DeleteForm';
 import EditButton from './EditButton.jsx';
 
 
-const Todos = ({tasks, setTasks}) => {
-    
-  
+const Todos = ({ tasks, setTasks}) => {
+    const testArray = [1, 2, 3, 4, 5];
+    testArray[0] = 7;
+   const onDelete = (id) => {
+        setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    }
+   
     //const [count, setCount] = useState(0);
   //  console.log(tasks);
 
@@ -32,7 +36,7 @@ const Todos = ({tasks, setTasks}) => {
                         <h2 className={`capitalize ${task.completed ? 'line-through' : ''}`}>
                             {task.name}
                         </h2>
-                        <DeleteForm id={task.id} setTasks={setTasks}/>
+                        <DeleteForm id={task.id} onDelete={onDelete}/>
                         <EditButton task={task.id} />
                     </li>
                 ))}
