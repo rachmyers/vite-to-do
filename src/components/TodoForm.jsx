@@ -38,7 +38,7 @@ const TodoForm = () => {
       const newTodo = await createTask(task.trim());
       console.log('Created task:', newTodo);
       setTask('')
-      setTasks((prevTasks) => 
+      setTasks((prevTasks) => [...prevTasks, newTodo]); 
     } catch (error) {
       console.error('Error creating task in UI:', error);
     }

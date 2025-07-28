@@ -4,7 +4,9 @@ import EditForm from './EditForm'
 
 
 const EditButton = ({task}) => {
-    console.log(task);
+    // eslint-disable-next-line no-debugger
+    debugger;
+    console.log("Task from Edit button: " + task);
     const [showEditForm, setShowEditForm] = useState(false)
     if (!task) {return;} 
    const handleToggle = () => {

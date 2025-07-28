@@ -4,26 +4,28 @@ import { updateTask } from '../actions/actions';
 import { useDispatch } from 'react-redux';
 
 
-const EditForm = ({id, content, completed}) => {
+const EditForm = ({id, name, isComplete}) => {
    
     //if (!task) {return;} 
    //const {id, content, completed} = task;
    //const [tasks, setTasks] = useState([])
-   console.log(id);
+   console.log("ID: " + id);
+   console.log("Content: " + name);
+   console.log("Completed: " + isComplete);
    return (
 
    <form 
    action={updateTask}
    className="max-w-sm p-12 border border-base-300 rounded-md">
     <input  name="id" value={id}/>
-    <input type="text" name="content" value={content} required className="input input-bordered w-full" />
+    <input type="text" name="name" value={name} required className="input input-bordered w-full" />
     <div className='form-control my-4'>
         <label className="label cursor-pointer" htmlFor='completed'>
             <span className="label-text">Completed</span>
             <input type="checkbox" 
             id="completed"
             name="completed"
-            value={completed}
+            value={isComplete}
             className="checkbox-primary checkbox checkbox-sm"/>
         </label>
        

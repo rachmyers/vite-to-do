@@ -67,12 +67,13 @@ export const createTask = async (taskText) => {
   };
 
 
-  export const updateTask = async ({id}) => {
+  export const updateTask = async (id) => {
     try {
-     // const id = 3;
-      const getContent = formData.get('text');
+     // eslint-disable-next-line no-debugger
+     debugger;
+      const getContent = formData.get('name');
       const completed = formData.get('completed') === 'true'; // Convert to boolean if needed
-  
+      
       const response = await fetch(`https://localhost:7293/api/todoitems/${id}`, {
         method: 'PUT',
         headers: {

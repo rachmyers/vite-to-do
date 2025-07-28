@@ -5,8 +5,6 @@ import EditButton from './EditButton.jsx';
 
 
 const Todos = ({ tasks, setTasks}) => {
-    const testArray = [1, 2, 3, 4, 5];
-    testArray[0] = 7;
    const onDelete = (id) => {
         setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
     }
@@ -37,7 +35,7 @@ const Todos = ({ tasks, setTasks}) => {
                             {task.name}
                         </h2>
                         <DeleteForm id={task.id} onDelete={onDelete}/>
-                        <EditButton task={task.id} />
+                        <EditButton task={task} />
                     </li>
                 ))}
             </ul>
