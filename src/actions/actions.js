@@ -67,7 +67,10 @@ export const createTask = async (taskText) => {
   };
 
 
-  export const updateTask = async (id) => {
+  export const updateTask = async (formData) => {
+    //event.preventDefault(); // Prevent the default form submission behavior
+   // const formData = new FormData(event.target);
+    const id = formData.get('id'); // Assuming the form has an input with name="id"
     try {
      // eslint-disable-next-line no-debugger
      debugger;
