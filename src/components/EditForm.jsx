@@ -3,7 +3,8 @@ import { updateTask } from "../actions/actions";
 //import PropTypes from 'index';
 import { useDispatch } from "react-redux";
 
-const EditForm = ({ id, name, isComplete }) => {
+const EditForm = ({ taskProp }) => {
+  const { id, name, isComplete } = taskProp;
   //if (!task) {return;}
   //const {id, content, completed} = task;
   //const [tasks, setTasks] = useState([])
