@@ -17,15 +17,14 @@ const EditForm = ({ taskProp }) => {
     console.log(e);
     setTask({ ...task, [e.target.name]: e.target.value });
   };
-  const handleEdit = async (e) => {
-    e.preventDefault();
-    if (!task.trim()) return;
+  const handleEdit = async () => {
+    if (!task.name.trim()) return;
 
     try {
-      const editedToDo = await updateTask(task.trim());
-      console.log("Edit task:", newTodo);
-      setTask("");
-      setTasks((prevTasks) => [...prevTasks, editedToDo]);
+      const editedToDo = await updateTask(task);
+      console.log("Edit task:", editedToDo);
+      // setTask("");
+      // setTasks((prevTasks) => [...prevTasks, editedToDo]);
     } catch (error) {
       console.error("Error creating task in UI:", error);
     }
