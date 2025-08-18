@@ -8,10 +8,15 @@ const EditForm = ({ taskProp }) => {
   //if (!task) {return;}
   //const {id, content, completed} = task;
   //const [tasks, setTasks] = useState([])
-  const [task, setTask] = useState("");
+  const [task, setTask] = useState(taskProp);
   console.log("ID: " + id);
   console.log("Content: " + name);
   console.log("Completed: " + isComplete);
+  console.log(task);
+  const handleChange = (e) => {
+    console.log(e);
+    setTask({ ...task, [e.target.name]: e.target.value });
+  };
   const handleEdit = async (e) => {
     e.preventDefault();
     if (!task.trim()) return;
@@ -30,12 +35,11 @@ const EditForm = ({ taskProp }) => {
       action={handleEdit}
       className="max-w-sm p-12 border border-base-300 rounded-md"
     >
-      <input name="id" value={id} />
       <input
         type="text"
-        onChange={(e) => setTask(e.target.value)}
+        onChange={(e) => handleChange(e)}
         name="name"
-        value={name}
+        value={task.name}
         required
         className="input input-bordered w-full"
       />
@@ -45,8 +49,9 @@ const EditForm = ({ taskProp }) => {
           <input
             type="checkbox"
             id="completed"
-            name="completed"
-            value={isComplete}
+            name="isComplete"
+            onChange={(e) => handleChange(e)}
+            value={task.isComplete}
             className="checkbox-primary checkbox checkbox-sm"
           />
         </label>
