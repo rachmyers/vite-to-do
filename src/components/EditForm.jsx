@@ -2,20 +2,22 @@ import React, { useState, useEffect } from "react";
 import { updateTask } from "../actions/actions";
 //import PropTypes from 'index';
 import { useDispatch } from "react-redux";
+import checkbox from "daisyui/components/checkbox";
 
-const EditForm = ({ taskProp }) => {
+const EditForm = ({ taskProp, setTasks, setShowEditForm }) => {
   const { id, name, isComplete } = taskProp;
   //if (!task) {return;}
   //const {id, content, completed} = task;
   //const [tasks, setTasks] = useState([])
   const [task, setTask] = useState(taskProp);
-  console.log("ID: " + id);
-  console.log("Content: " + name);
-  console.log("Completed: " + isComplete);
   console.log(task);
   const handleChange = (e) => {
     console.log(e);
-    setTask({ ...task, [e.target.name]: e.target.value });
+    setTask({
+      ...task,
+      [e.target.name]:
+        e.target.type === "checkbox" ? e.target.checked : e.target.value,
+    });
   };
   const handleEdit = async () => {
     if (!task.name.trim()) return;
@@ -23,15 +25,18 @@ const EditForm = ({ taskProp }) => {
     try {
       const editedToDo = await updateTask(task);
       console.log("Edit task:", editedToDo);
-      // setTask("");
-      // setTasks((prevTasks) => [...prevTasks, editedToDo]);
+      setTasks((prevTasks) =>
+        prevTasks.map((prevTask) =>
+          prevTask.id === task.id ? editedToDo : prevTask
+        )
+      );
     } catch (error) {
       console.error("Error creating task in UI:", error);
     }
   };
   return (
     <form
-      action={handleEdit}
+      onSubmit={handleEdit}
       className="max-w-sm p-12 border border-base-300 rounded-md"
     >
       <input
@@ -50,7 +55,7 @@ const EditForm = ({ taskProp }) => {
             id="completed"
             name="isComplete"
             onChange={(e) => handleChange(e)}
-            value={task.isComplete}
+            checked={task.isComplete}
             className="checkbox-primary checkbox checkbox-sm"
           />
         </label>
@@ -58,6 +63,13 @@ const EditForm = ({ taskProp }) => {
 
       <button type="submit" className="btn btn-primary btn-block btn-sm">
         edit
+      </button>
+
+      <button
+        onClick={() => setShowEditForm(false)}
+        className="btn btn-primary btn-block btn-sm"
+      >
+        cancel
       </button>
     </form>
   );

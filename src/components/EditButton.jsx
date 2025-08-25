@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import EditForm from "./EditForm";
 
-const EditButton = ({ task }) => {
+const EditButton = ({ task, setTasks }) => {
   // eslint-disable-next-line no-debugger
   // debugger;
   console.log("Task from Edit button: " + task);
@@ -13,7 +13,11 @@ const EditButton = ({ task }) => {
     setShowEditForm(!showEditForm);
   };
   return showEditForm ? (
-    <EditForm taskProp={task} />
+    <EditForm
+      taskProp={task}
+      setTasks={setTasks}
+      setShowEditForm={setShowEditForm}
+    />
   ) : (
     <button
       onClick={handleToggle}

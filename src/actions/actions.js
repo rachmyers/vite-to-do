@@ -67,7 +67,7 @@ export const deleteTask = async (taskId) => {
   }
 };
 
-export const updateTask = async (formData) => {
+export const updateTask = async (task) => {
   //event.preventDefault(); // Prevent the default form submission behavior
   // const formData = new FormData(event.target);
   try {
@@ -75,16 +75,16 @@ export const updateTask = async (formData) => {
     debugger;
 
     const response = await fetch(
-      `https://localhost:7293/api/todoitems/${formData.id}`,
+      `https://localhost:7293/api/todoitems/${task.id}`,
       {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: formData.id,
-          name: formData.getContent,
-          isComplete: formData.completed,
+          id: task.id,
+          name: task.name,
+          isComplete: task.isComplete,
         }),
       }
     );
