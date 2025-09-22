@@ -19,7 +19,10 @@ const EditForm = ({ taskProp, setTasks, setShowEditForm }) => {
         e.target.type === "checkbox" ? e.target.checked : e.target.value,
     });
   };
-  const handleEdit = async () => {
+  const handleEdit = async (e) => {
+    //added this line to prevent default behavior on a form-
+    //keeps page from refreshing
+    e.preventDefault();
     if (!task.name.trim()) return;
 
     try {

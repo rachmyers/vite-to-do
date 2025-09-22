@@ -1,10 +1,14 @@
-import { getAllTasks, createTask } from "../actions";
-import { vi, describe, it, expect } from "vitest";
+import { getAllTasks, createTask, updateTask, deleteTask } from "../actions";
+import { vi, describe, it, expect, beforeEach } from "vitest";
 
 //run using npm test
 //getAllTasks test
 global.fetch = vi.fn();
 describe("getAllTasks", () => {
+  //Resets mock function
+  beforeEach(() => {
+    fetch.mockClear();
+  });
   it("Return array of tasks", async () => {
     //arrange
     const mockResponseData = [{ id: 1, name: "test", isComplete: false }];
@@ -36,8 +40,10 @@ describe("getAllTasks", () => {
 });
 
 //createTask test
-global.fetch = vi.fn();
 describe("createTask", () => {
+  beforeEach(() => {
+    fetch.mockClear();
+  });
   it("Create a task", async () => {
     //arrange
     const mockNewTask = [{ id: 1, name: "test", isComplete: false }];
@@ -61,10 +67,38 @@ describe("createTask", () => {
       status: 500,
     };
     fetch.mockResolvedValue(mockResponse);
-    //act
-    //const result = await getAllTasks();
-    //assert
-    //console.log(result);
     await expect(createTask(mockNewTask)).rejects.toThrowError();
+  });
+});
+
+//updateTask test
+describe("updateTask", () => {
+  beforeEach(() => {
+    fetch.mockClear();
+  });
+  it("Update a task", async () => {
+    //arrange
+    const mockTask = [{ id: 1, name: "test", isComplete: false }];
+    const mockResponse = {
+      ok: true,
+      status: 200,
+      json: async () => mockTask,
+    };
+    fetch.mockResolvedValue(mockResponse);
+    //act
+    const result = await updateTask(mockTask);
+    //assert
+    expect(result).toBe(mockTask);
+  });
+
+  it("Should throw error if response not OK", async () => {
+    //arrange
+    const mockTask = [{ id: 1, name: "test", isComplete: false }];
+    const mockResponse = {
+      ok: false,
+      status: 500,
+    };
+    fetch.mockResolvedValue(mockResponse);
+    await expect(updateTask(mockTask)).rejects.toThrowError();
   });
 });

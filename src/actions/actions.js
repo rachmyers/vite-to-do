@@ -68,12 +68,9 @@ export const deleteTask = async (taskId) => {
 };
 
 export const updateTask = async (task) => {
-  //event.preventDefault(); // Prevent the default form submission behavior
-  // const formData = new FormData(event.target);
+  // eslint-disable-next-line no-debugger
+  debugger;
   try {
-    // eslint-disable-next-line no-debugger
-    debugger;
-
     const response = await fetch(
       `https://localhost:7293/api/todoitems/${task.id}`,
       {
