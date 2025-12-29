@@ -1,15 +1,21 @@
-import TodoForm from "./TodoForm";
 import { render, screen, waitFor } from "@testing-library/react";
 import { vi, describe, it, expect, beforeEach } from "vitest";
 import userEvent from "@testing-library/user-event";
-import { createTask, getAllTasks } from "../actions/actions.js";
 
-//ues mocked actions and functions and not real ones
-//arrow function brackets wrapped in () to do implicit return
+// Mock the actions module BEFORE importing the component and functions
 vi.mock("../actions/actions.js", () => ({
   createTask: vi.fn(),
   getAllTasks: vi.fn(),
+  //mock the update and delete functions here
 }));
+
+import {
+  createTask,
+  getAllTasks,
+  updateTask,
+  deleteTask,
+} from "../actions/actions.js";
+import TodoForm from "./TodoForm";
 
 describe("TodoForm", () => {
   beforeEach(() => {
@@ -22,13 +28,18 @@ describe("TodoForm", () => {
     expect(screen.getByText("create task")).toBeInTheDocument();
   });
   it("Should add and show a new task", async () => {
-    const mockResponseData = [{ id: 1, name: "testTask", isComplete: false }];
-    createTask.mockResolvedValueOnce(mockResponseData);
+    const taskTitle = "testTask";
+    const mockNewTask = { id: 1, name: taskTitle, isComplete: false };
+    createTask.mockResolvedValueOnce(mockNewTask);
     render(<TodoForm />);
-    const textInput = screen.getAllByPlaceholderText("type here");
-    userEvent.type(textInput, "new task");
+    const textInput = screen.getByPlaceholderText("type here");
+    await userEvent.type(textInput, taskTitle);
     screen.getByText("create task").click();
 
-    await waitFor(expect(screen.getByText("testTask")).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByText(taskTitle)).toBeInTheDocument()
+    );
   });
 });
+
+//Work on update/delete unit tests

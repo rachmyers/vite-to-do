@@ -46,7 +46,7 @@ describe("createTask", () => {
   });
   it("Create a task", async () => {
     //arrange
-    const mockNewTask = [{ id: 1, name: "test", isComplete: false }];
+    const mockNewTask = { id: 1, name: "test", isComplete: false };
     const mockResponse = {
       ok: true,
       status: 200,
@@ -61,7 +61,7 @@ describe("createTask", () => {
 
   it("Should throw error if response not OK", async () => {
     //arrange
-    const mockNewTask = [{ id: 1, name: "test", isComplete: false }];
+    const mockNewTask = { id: 1, name: "test", isComplete: false };
     const mockResponse = {
       ok: false,
       status: 500,

@@ -89,9 +89,9 @@ export const updateTask = async (task) => {
     if (!response.ok) {
       throw new Error(`HTTP error: ${response.status}`);
     }
-
-    const text = await response.text();
-    return text ? JSON.parse(text) : null;
+    //debugger;
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error("Failed to update task:", error);
     throw error;
