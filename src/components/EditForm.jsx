@@ -41,6 +41,7 @@ const EditForm = ({ taskProp, setTasks, setShowEditForm }) => {
     <form
       onSubmit={handleEdit}
       className="max-w-sm p-12 border border-base-300 rounded-md"
+      data-testid="editForm"
     >
       <input
         type="text"

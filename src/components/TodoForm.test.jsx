@@ -40,6 +40,40 @@ describe("TodoForm", () => {
       expect(screen.getByText(taskTitle)).toBeInTheDocument()
     );
   });
+  it("Should update and show changed task", async () => {
+    //first add task
+    const taskTitle = "testTask";
+    const mockNewTask = { id: 1, name: taskTitle, isComplete: false };
+    createTask.mockResolvedValueOnce(mockNewTask);
+    render(<TodoForm />);
+    const textInput = screen.getByPlaceholderText("type here");
+    await userEvent.type(textInput, taskTitle);
+    screen.getByText("create task").click();
+    await waitFor(() =>
+      expect(screen.getByText(taskTitle)).toBeInTheDocument()
+    );
+
+    //test clicking edit
+    screen.getByText("edit").click();
+    await waitFor(() =>
+      expect(screen.getByTestId("editForm")).toBeInTheDocument()
+    );
+
+    //test clicking cancel
+    screen.getByText("cancel").click();
+    await waitFor(() =>
+      expect(screen.getByTestId("editForm")).not.toBeInTheDocument()
+    );
+
+    //click edit again
+    // screen.getByText("edit").click();
+
+    //test updating item
+
+    //test clicking Completed
+
+    //verify item has been updated on screen
+  });
 });
 
 //Work on update/delete unit tests
