@@ -40,14 +40,15 @@ describe("TodoForm", () => {
       expect(screen.getByText(taskTitle)).toBeInTheDocument()
     );
   });
-  it("Should update and show changed task", async () => {
+  //it.only only runs this test
+  it.only("Should update and show changed task", async () => {
     //first add task
     const taskTitle = "testTask";
     const mockNewTask = { id: 1, name: taskTitle, isComplete: false };
     createTask.mockResolvedValueOnce(mockNewTask);
     render(<TodoForm />);
-    const textInput = screen.getByPlaceholderText("type here");
-    await userEvent.type(textInput, taskTitle);
+    const textInputPlaceholder = screen.getByPlaceholderText("type here");
+    await userEvent.type(textInputPlaceholder, taskTitle);
     screen.getByText("create task").click();
     await waitFor(() =>
       expect(screen.getByText(taskTitle)).toBeInTheDocument()
@@ -62,13 +63,30 @@ describe("TodoForm", () => {
     //test clicking cancel
     screen.getByText("cancel").click();
     await waitFor(() =>
-      expect(screen.getByTestId("editForm")).not.toBeInTheDocument()
+      expect(screen.queryByTestId("editForm")).not.toBeInTheDocument()
     );
 
     //click edit again
-    // screen.getByText("edit").click();
+    screen.getByText("edit").click();
+    await waitFor(() =>
+      expect(screen.getByTestId("editForm")).toBeInTheDocument()
+    );
+    //will print out current state of the dom
+    screen.debug();
 
     //test updating item
+    const textInput = "buy milk";
+    const inputElement = screen.getByRole("textbox", { name: "Task Name" });
+    await userEvent.clear(inputElement);
+    const checkBoxElement = screen.getByRole("checkbox", {
+      name: "Completed",
+    });
+    await userEvent.type(inputElement, textInput);
+    userEvent.click(checkBoxElement);
+
+    screen.debug();
+
+    //click submit button and mock api call - use spies
 
     //test clicking Completed
 

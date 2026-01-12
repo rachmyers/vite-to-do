@@ -43,14 +43,18 @@ const EditForm = ({ taskProp, setTasks, setShowEditForm }) => {
       className="max-w-sm p-12 border border-base-300 rounded-md"
       data-testid="editForm"
     >
-      <input
-        type="text"
-        onChange={(e) => handleChange(e)}
-        name="name"
-        value={task.name}
-        required
-        className="input input-bordered w-full"
-      />
+      <label className="label cursor-pointer" htmlFor="name">
+        <span className="label-text">Task Name</span>
+        <input
+          id="name"
+          type="text"
+          onChange={(e) => handleChange(e)}
+          name="name"
+          value={task.name}
+          required
+          className="input input-bordered w-full"
+        />
+      </label>
       <div className="form-control my-4">
         <label className="label cursor-pointer" htmlFor="completed">
           <span className="label-text">Completed</span>
