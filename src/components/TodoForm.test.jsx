@@ -6,7 +6,8 @@ import userEvent from "@testing-library/user-event";
 vi.mock("../actions/actions.js", () => ({
   createTask: vi.fn(),
   getAllTasks: vi.fn(),
-  //mock the update and delete functions here
+  updateTask: vi.fn(),
+  //mock the delete function here
 }));
 
 import {
@@ -67,6 +68,7 @@ describe("TodoForm", () => {
     );
 
     //click edit again
+    screen.debug();
     screen.getByText("edit").click();
     await waitFor(() =>
       expect(screen.getByTestId("editForm")).toBeInTheDocument()
@@ -82,13 +84,21 @@ describe("TodoForm", () => {
       name: "Completed",
     });
     await userEvent.type(inputElement, textInput);
+    //Click Completed checkbox
     userEvent.click(checkBoxElement);
 
     screen.debug();
 
-    //click submit button and mock api call - use spies
+    //click submit (edit) button and mock api call
+    const editButton = screen.getByRole("button", { name: "edit" });
+    console.log(editButton);
+    //Clicked Completed a few lines earlier, so isComplete should now be true
+    const mockUpdateTask = { id: 1, name: textInput, isComplete: true };
 
-    //test clicking Completed
+    //mockUpdateTask is the argument that should be passed to the UI
+    expect(updateTask).toHaveBeenCalledExactlyOnceWith(mockUpdateTask);
+    //assert that updateTask was called and that the api response looks like mockUpdateTask
+    updateTask.mockResolvedValueOnce(mockUpdateTask);
 
     //verify item has been updated on screen
   });
