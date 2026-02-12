@@ -84,19 +84,27 @@ describe("TodoForm", () => {
     const inputElement = screen.getByRole("textbox", { name: "Task Name" });
     await userEvent.clear(inputElement);
     const checkBoxElement = screen.getByLabelText("Completed");
-    await userEvent.type(inputElement, textInput);
-    //Click Completed checkbox
+
+    // Verify the checkbox is rendered and its initial state
+    expect(checkBoxElement).toBeInTheDocument();
+    expect(checkBoxElement).not.toBeChecked();
+
+    // Click Completed checkbox
     await userEvent.click(checkBoxElement);
+
+    // Assert that the checkbox is checked after clicking
     await waitFor(() => expect(checkBoxElement).toBeChecked());
+
+    await userEvent.type(inputElement, textInput);
 
     screen.debug();
 
     //click submit (edit) button and mock api call
-    // const editButton = screen.getByRole("button", { name: "edit" });
-    // console.log(editButton);
+    const editButton = screen.getByRole("button", { name: "edit" });
+    console.log(editButton);
 
     //mockUpdateTask is the argument that should be passed to the UI
-    // expect(updateTask).toHaveBeenCalledExactlyOnceWith(mockUpdateTask);
+    expect(updateTask).toHaveBeenCalledExactlyOnceWith(mockUpdateTask);
 
     //assert that updateTask was called and that the api response looks like mockUpdateTask
 

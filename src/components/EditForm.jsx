@@ -74,6 +74,7 @@ const EditForm = ({ taskProp, setTasks, setShowEditForm }) => {
       </button>
 
       <button
+        type="button"
         onClick={() => setShowEditForm(false)}
         className="btn btn-primary btn-block btn-sm"
       >
