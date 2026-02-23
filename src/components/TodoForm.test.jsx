@@ -42,7 +42,7 @@ describe("TodoForm", () => {
     );
   });
   //it.only only runs this test
-  it.only("Should update and show changed task", async () => {
+  it("Should update and show changed task", async () => {
     //first add task
     const taskTitle = "testTask";
     const textInput = "buy milk";
@@ -101,15 +101,31 @@ describe("TodoForm", () => {
 
     //click submit (edit) button and mock api call
     const editButton = screen.getByRole("button", { name: "edit" });
+    userEvent.click(editButton);
     console.log(editButton);
 
     //mockUpdateTask is the argument that should be passed to the UI
-    expect(updateTask).toHaveBeenCalledExactlyOnceWith(mockUpdateTask);
+    await waitFor(() =>
+      expect(updateTask).toHaveBeenCalledExactlyOnceWith(mockUpdateTask)
+    );
 
     //assert that updateTask was called and that the api response looks like mockUpdateTask
+    await waitFor(() =>
+      expect(screen.getByText(textInput)).toBeInTheDocument()
+    );
 
     //verify item has been updated on screen
   });
-});
+  //Delete tests
+  it.only("Should delete a task and not show it on the screen", async () => {
+    const taskTitle = "testTask";
+    const mockNewTask = { id: 1, name: taskTitle, isComplete: false };
+    getAllTasks.mockResolvedValueOnce(mockNewTask);
+    render(<TodoForm />);
 
-//Work on update/delete unit tests
+    await waitFor(() => expect(screen.getByText("Delete")).toBeInTheDocument());
+
+    const deleteButton = screen.getByText("Delete");
+    console.log("Delete button info: " + deleteButton);
+  });
+});
