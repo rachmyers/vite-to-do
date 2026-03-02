@@ -7,6 +7,7 @@ vi.mock("../actions/actions.js", () => ({
   createTask: vi.fn(),
   getAllTasks: vi.fn(),
   updateTask: vi.fn(),
+  deleteTask: vi.fn(),
   //mock the delete function here
 }));
 
@@ -119,13 +120,29 @@ describe("TodoForm", () => {
   //Delete tests
   it.only("Should delete a task and not show it on the screen", async () => {
     const taskTitle = "testTask";
-    const mockNewTask = { id: 1, name: taskTitle, isComplete: false };
-    getAllTasks.mockResolvedValueOnce(mockNewTask);
+    const id = 1;
+    const mockNewTask = [{ id, name: taskTitle, isComplete: false }]; // Return an array
+    getAllTasks.mockReset();
+    getAllTasks.mockResolvedValueOnce(mockNewTask); // Mock getAllTasks to return an array
+    deleteTask.mockResolvedValueOnce();
     render(<TodoForm />);
 
-    await waitFor(() => expect(screen.getByText("Delete")).toBeInTheDocument());
+    // Wait for the task to appear on the screen
+    await waitFor(() =>
+      expect(screen.getByText(taskTitle)).toBeInTheDocument()
+    );
 
+    // Find and click the delete button
     const deleteButton = screen.getByText("Delete");
-    console.log("Delete button info: " + deleteButton);
+    expect(deleteButton).toBeInTheDocument();
+    await userEvent.click(deleteButton);
+    await waitFor(() => {
+      expect(deleteTask).toHaveBeenCalledWith(id);
+    });
+
+    // Verify that the task is no longer displayed
+    await waitFor(() =>
+      expect(screen.queryByText(taskTitle)).not.toBeInTheDocument()
+    );
   });
 });
