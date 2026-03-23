@@ -1,8 +1,10 @@
 import React, { formData, useState } from "react";
 
+const VITE_API_URL = import.meta.env.VITE_API_URL;
+
 export const getAllTasks = async () => {
   try {
-    const response = await fetch("https://localhost:7293/api/todoitems", {
+    const response = await fetch(`${VITE_API_URL}/api/todoitems`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -22,7 +24,7 @@ export const getAllTasks = async () => {
 
 export const createTask = async (taskText) => {
   try {
-    const response = await fetch("https://localhost:7293/api/todoitems", {
+    const response = await fetch(`${VITE_API_URL}/api/todoitems`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,15 +46,12 @@ export const createTask = async (taskText) => {
 
 export const deleteTask = async (taskId) => {
   try {
-    const response = await fetch(
-      `https://localhost:7293/api/todoitems/${taskId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch(`${VITE_API_URL}/api/todoitems/${taskId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error: ${response.status}`);
@@ -68,28 +67,23 @@ export const deleteTask = async (taskId) => {
 };
 
 export const updateTask = async (task) => {
-  // eslint-disable-next-line no-debugger
-  debugger;
   try {
-    const response = await fetch(
-      `https://localhost:7293/api/todoitems/${task.id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: task.id,
-          name: task.name,
-          isComplete: task.isComplete,
-        }),
-      }
-    );
+    const response = await fetch(`${VITE_API_URL}/api/todoitems/${task.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: task.id,
+        name: task.name,
+        isComplete: task.isComplete,
+      }),
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error: ${response.status}`);
     }
-    //debugger;
+
     const data = await response.json();
     return data;
   } catch (error) {

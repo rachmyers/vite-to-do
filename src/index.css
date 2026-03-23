@@ -1,29 +1,71 @@
+/* Theme variables for To-Do App */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Colors */
+  --color-bg: #f9f9fb;
+  --color-surface: #fff;
+  --color-primary: #4f8cff;
+  --color-secondary: #e0e7ff;
+  --color-accent: #ffb347;
+  --color-text: #22223b;
+  --color-text-light: #6c757d;
+  --color-border: #e5e5e5;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* New Colors */
+  --color-success: #4caf50;
+  --color-danger: #ff4d4f;
+  --color-warning: #ffecb3;
+  --color-shadow: rgba(79, 140, 255, 0.08);
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Typography */
+  --font-family: "Segoe UI", "Roboto", "Arial", sans-serif;
+  --font-size-base: 16px;
+  --font-size-lg: 1.25rem;
+  --font-size-sm: 0.9rem;
+  --font-size-xl: 2rem;
+  --font-weight-bold: 700;
+  --font-weight-normal: 400;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+
+  /* Border radius */
+  --radius: 8px;
+  --radius-lg: 16px;
+  --radius-sm: 4px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px var(--color-shadow);
+  --shadow-md: 0 4px 12px var(--color-shadow);
+  --shadow-lg: 0 8px 24px var(--color-shadow);
 }
 
 body {
   margin: 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  justify-content: center;
+  min-width: 100vw;
   min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    var(--color-bg) 60%,
+    var(--color-secondary) 100%
+  );
+  font-family: var(--font-family);
+  color: var(--color-text);
+  letter-spacing: 0.01em;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-lg);
+  letter-spacing: 0.02em;
+  text-align: center;
 }
 
 button {
@@ -33,14 +75,113 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: white;
   cursor: pointer;
   transition: border-color 0.25s;
+  box-shadow: var(--shadow-sm);
+  color: var(--color-primary);
+  margin: var(--space-xs);
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--color-primary);
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  box-shadow: var(--shadow-md);
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Card/Container Styles */
+.app-container,
+.card,
+.todo-list,
+.form-container {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-lg);
+  margin: var(--space-lg) auto;
+  max-width: 480px;
+  width: 100%;
+}
+
+/* Input Styles */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: var(--font-size-base);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  color: var(--color-text);
+  margin-bottom: var(--space-md);
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-primary);
+  outline: none;
+  box-shadow: var(--shadow-sm);
+}
+
+/* List Styles */
+ul,
+ol {
+  padding-left: var(--space-lg);
+}
+
+li {
+  background: var(--color-bg);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-sm);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.2s;
+}
+li.completed {
+  text-decoration: line-through;
+  color: var(--color-text-light);
+  background: var(--color-secondary);
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+.mb-md {
+  margin-bottom: var(--space-md);
+}
+.mb-lg {
+  margin-bottom: var(--space-lg);
+}
+.mt-md {
+  margin-top: var(--space-md);
+}
+.mt-lg {
+  margin-top: var(--space-lg);
+}
+
+/* Accent/Status */
+.accent {
+  color: var(--color-accent);
+}
+.success {
+  color: var(--color-success);
+}
+.danger {
+  color: var(--color-danger);
+}
+.warning {
+  color: var(--color-warning);
 }
