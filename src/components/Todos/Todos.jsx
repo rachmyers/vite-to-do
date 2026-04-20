@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getAllTasks } from "../actions/actions";
-import DeleteForm from "./DeleteForm";
-import EditButton from "./EditButton.jsx";
+import { getAllTasks } from "../../actions/actions.js";
+import DeleteForm from "../DeleteForm.jsx";
+import EditButton from "../EditButton.jsx";
+import styles from "./Todos.module.css";
 
 const Todos = ({ tasks, setTasks }) => {
   const onDelete = (id) => {
@@ -27,7 +28,7 @@ const Todos = ({ tasks, setTasks }) => {
               className="flex justify-between items-center px-6 py-4 mb-4 border border-base-300 rounded-lg shadow-lg"
             >
               <h2
-                className={`capitalize ${task.completed ? "line-through" : ""}`}
+                className={`${styles.capitalize} ${task.isComplete ? styles.strikeThrough : ""}`}
               >
                 {task.name}
               </h2>

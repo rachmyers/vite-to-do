@@ -1,0 +1,7 @@
+.capitalize {
+  text-transform: capitalize;
+}
+
+.strikeThrough {
+  text-decoration: line-through;
+}

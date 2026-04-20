@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createTask, getAllTasks } from "../actions/actions";
 import { useFormStatus, useFormState } from "react-dom";
-import Todos from "./Todos";
+import Todos from "./Todos/Todos";
 
 const initialState = {
   message: null,
@@ -32,7 +32,7 @@ const TodoForm = () => {
       //(async() => setTasks(await getAllTasks()))()
       fetchData();
     },
-    []
+    [],
     //empty square brackets means it only runs once
   );
 
