@@ -10,9 +10,8 @@ const EditForm = ({ taskProp, setTasks, setShowEditForm }) => {
   //const {id, content, completed} = task;
   //const [tasks, setTasks] = useState([])
   const [task, setTask] = useState(taskProp);
-  console.log(task);
+
   const handleChange = (e) => {
-    console.log(e);
     setTask({
       ...task,
       [e.target.name]:
@@ -27,11 +26,11 @@ const EditForm = ({ taskProp, setTasks, setShowEditForm }) => {
 
     try {
       const editedToDo = await updateTask(task);
-      console.log("Edit task:", editedToDo);
+
       setTasks((prevTasks) =>
         prevTasks.map((prevTask) =>
-          prevTask.id === task.id ? editedToDo : prevTask
-        )
+          prevTask.id === task.id ? editedToDo : prevTask,
+        ),
       );
     } catch (error) {
       console.error("Error creating task in UI:", error);

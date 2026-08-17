@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import EditForm from "./EditForm";
 
 const EditButton = ({ task, setTasks }) => {
-  console.log("Task from Edit button: " + task);
   const [showEditForm, setShowEditForm] = useState(false);
   if (!task) {
     return;

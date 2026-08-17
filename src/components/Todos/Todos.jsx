@@ -10,11 +10,9 @@ const Todos = ({ tasks, setTasks }) => {
   };
 
   //const [count, setCount] = useState(0);
-  //  console.log(tasks);
 
   try {
     // const tasks = await getAllTasks();
-    console.log("tasks length:" + tasks.length);
     if (tasks.length === 0) {
       return <h2 className="mt-8 font-medium text-lg">No tasks to show</h2>;
     }
@@ -42,7 +40,7 @@ const Todos = ({ tasks, setTasks }) => {
   } catch (error) {
     // Log the error to the console
     console.error("Error rendering tasks:", error);
-    console.log("tasks", tasks);
+
     // Provide a fallback UI
     return (
       <div className="mt-8 text-center">

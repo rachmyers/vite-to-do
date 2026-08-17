@@ -39,7 +39,7 @@ describe("TodoForm", () => {
     screen.getByText("create task").click();
 
     await waitFor(() =>
-      expect(screen.getByText(taskTitle)).toBeInTheDocument()
+      expect(screen.getByText(taskTitle)).toBeInTheDocument(),
     );
   });
   //it.only only runs this test
@@ -56,26 +56,26 @@ describe("TodoForm", () => {
     await userEvent.type(textInputPlaceholder, taskTitle);
     screen.getByText("create task").click();
     await waitFor(() =>
-      expect(screen.getByText(taskTitle)).toBeInTheDocument()
+      expect(screen.getByText(taskTitle)).toBeInTheDocument(),
     );
 
     //test clicking edit
     screen.getByText("edit").click();
     await waitFor(() =>
-      expect(screen.getByTestId("editForm")).toBeInTheDocument()
+      expect(screen.getByTestId("editForm")).toBeInTheDocument(),
     );
 
     //test clicking cancel
     screen.getByText("cancel").click();
     await waitFor(() =>
-      expect(screen.queryByTestId("editForm")).not.toBeInTheDocument()
+      expect(screen.queryByTestId("editForm")).not.toBeInTheDocument(),
     );
 
     //click edit again
     screen.debug();
     screen.getByText("edit").click();
     await waitFor(() =>
-      expect(screen.getByTestId("editForm")).toBeInTheDocument()
+      expect(screen.getByTestId("editForm")).toBeInTheDocument(),
     );
     //will print out current state of the dom
     screen.debug();
@@ -103,16 +103,15 @@ describe("TodoForm", () => {
     //click submit (edit) button and mock api call
     const editButton = screen.getByRole("button", { name: "edit" });
     userEvent.click(editButton);
-    console.log(editButton);
 
     //mockUpdateTask is the argument that should be passed to the UI
     await waitFor(() =>
-      expect(updateTask).toHaveBeenCalledExactlyOnceWith(mockUpdateTask)
+      expect(updateTask).toHaveBeenCalledExactlyOnceWith(mockUpdateTask),
     );
 
     //assert that updateTask was called and that the api response looks like mockUpdateTask
     await waitFor(() =>
-      expect(screen.getByText(textInput)).toBeInTheDocument()
+      expect(screen.getByText(textInput)).toBeInTheDocument(),
     );
 
     //verify item has been updated on screen
@@ -129,7 +128,7 @@ describe("TodoForm", () => {
 
     // Wait for the task to appear on the screen
     await waitFor(() =>
-      expect(screen.getByText(taskTitle)).toBeInTheDocument()
+      expect(screen.getByText(taskTitle)).toBeInTheDocument(),
     );
 
     // Find and click the delete button
@@ -142,7 +141,7 @@ describe("TodoForm", () => {
 
     // Verify that the task is no longer displayed
     await waitFor(() =>
-      expect(screen.queryByText(taskTitle)).not.toBeInTheDocument()
+      expect(screen.queryByText(taskTitle)).not.toBeInTheDocument(),
     );
   });
 });

@@ -34,7 +34,7 @@ describe("getAllTasks", () => {
     //act
     //const result = await getAllTasks();
     //assert
-    //console.log(result);
+
     await expect(getAllTasks()).rejects.toThrowError();
   });
 });
