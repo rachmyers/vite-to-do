@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { createTask, getAllTasks } from "../actions/actions";
+import { createTask, getAllTasks } from "../actions/actions.js";
 import { useFormStatus, useFormState } from "react-dom";
-import Todos from "./Todos/Todos";
+import Todos from "./Todos/Todos.js";
 
 const initialState = {
   message: null,
 };
-
+export interface TodosType {
+  id: number;
+  name: string;
+  isComplete: boolean;
+}
 //can have multiple export consts in a file, but only one default
 export const SubmitBtn = () => {
   const { pending } = useFormStatus();
@@ -22,7 +26,7 @@ export const SubmitBtn = () => {
 };
 
 const TodoForm = () => {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<TodosType[]>([]);
   const [task, setTask] = useState("");
   useEffect(
     () => {

@@ -1,11 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import { getAllTasks } from "../../actions/actions.js";
 import DeleteForm from "../DeleteForm.jsx";
 import EditButton from "../EditButton.jsx";
 import styles from "./Todos.module.css";
+import type { TodosType } from "../TodoForm.js";
 
-const Todos = ({ tasks, setTasks }) => {
-  const onDelete = (id) => {
+type TodosProps = {
+  tasks: TodosType[];
+  setTasks: Dispatch<SetStateAction<TodosType[]>>;
+};
+
+const Todos = ({ tasks, setTasks }: TodosProps) => {
+  const onDelete = (id: number) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   };
 
