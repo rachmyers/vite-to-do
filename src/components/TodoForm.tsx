@@ -1,12 +1,8 @@
 import React, { useState, useEffect, type SyntheticEvent } from "react";
 import { createTask, getAllTasks } from "../actions/actions.js";
-import { useFormStatus, useFormState } from "react-dom";
+import { useFormStatus } from "react-dom";
 import Todos from "./Todos/Todos.js";
 import { type TodosType } from "../types/TodoType.js";
-
-const initialState = {
-  message: null,
-};
 
 //can have multiple export consts in a file, but only one default
 export const SubmitBtn = () => {
@@ -30,7 +26,6 @@ const TodoForm = () => {
       const fetchData = async () => setTasks(await getAllTasks());
       //Line 11 same as lines 10 and 12, calling the function. It is a self-invoking function
       // eslint-disable-next-line no-unexpected-multiline
-      //(async() => setTasks(await getAllTasks()))()
       fetchData();
     },
     [],

@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-  type Dispatch,
-  type SetStateAction,
-} from "react";
-import { getAllTasks } from "../../actions/actions.js";
+import { type Dispatch, type SetStateAction } from "react";
 import DeleteForm from "../DeleteForm.jsx";
 import EditButton from "../EditButton.jsx";
 import styles from "./Todos.module.css";
@@ -20,10 +14,7 @@ const Todos = ({ tasks, setTasks }: TodosProps) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
   };
 
-  //const [count, setCount] = useState(0);
-
   try {
-    // const tasks = await getAllTasks();
     if (tasks.length === 0) {
       return <h2 className="mt-8 font-medium text-lg">No tasks to show</h2>;
     }
