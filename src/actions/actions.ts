@@ -1,8 +1,8 @@
-import React, { formData, useState } from "react";
+import { type TodosType } from "../types/TodoType.js";
 
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
-export const getAllTasks = async () => {
+export const getAllTasks = async (): Promise<TodosType[]> => {
   try {
     const response = await fetch(`${VITE_API_URL}/api/todoitems`, {
       method: "GET",
@@ -15,14 +15,14 @@ export const getAllTasks = async () => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    return await response.json();
+    return (await response.json()) as Promise<TodosType[]>;
   } catch (error) {
     console.error("Error fetching tasks:", error);
     throw error; // Re-throw the error to handle it where the function is called
   }
 };
 
-export const createTask = async (taskText) => {
+export const createTask = async (taskText: string): Promise<TodosType> => {
   try {
     const response = await fetch(`${VITE_API_URL}/api/todoitems`, {
       method: "POST",
@@ -36,7 +36,7 @@ export const createTask = async (taskText) => {
       throw new Error(`HTTP error: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as Promise<TodosType>;
     return data;
   } catch (error) {
     console.error("Failed to create task:", error);
@@ -44,7 +44,7 @@ export const createTask = async (taskText) => {
   }
 };
 
-export const deleteTask = async (taskId) => {
+export const deleteTask = async (taskId: number) => {
   try {
     const response = await fetch(`${VITE_API_URL}/api/todoitems/${taskId}`, {
       method: "DELETE",
@@ -66,7 +66,7 @@ export const deleteTask = async (taskId) => {
   }
 };
 
-export const updateTask = async (task) => {
+export const updateTask = async (task: TodosType): Promise<TodosType> => {
   try {
     const response = await fetch(`${VITE_API_URL}/api/todoitems/${task.id}`, {
       method: "PUT",
@@ -84,7 +84,7 @@ export const updateTask = async (task) => {
       throw new Error(`HTTP error: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as Promise<TodosType>;
     return data;
   } catch (error) {
     console.error("Failed to update task:", error);

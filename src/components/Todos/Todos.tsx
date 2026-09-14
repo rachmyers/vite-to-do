@@ -8,7 +8,7 @@ import { getAllTasks } from "../../actions/actions.js";
 import DeleteForm from "../DeleteForm.jsx";
 import EditButton from "../EditButton.jsx";
 import styles from "./Todos.module.css";
-import type { TodosType } from "../TodoForm.js";
+import { type TodosType } from "../../types/TodoType.js";
 
 type TodosProps = {
   tasks: TodosType[];

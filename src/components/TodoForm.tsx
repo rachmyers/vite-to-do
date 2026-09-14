@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, type SyntheticEvent } from "react";
 import { createTask, getAllTasks } from "../actions/actions.js";
 import { useFormStatus, useFormState } from "react-dom";
 import Todos from "./Todos/Todos.js";
+import { type TodosType } from "../types/TodoType.js";
 
 const initialState = {
   message: null,
 };
-export interface TodosType {
-  id: number;
-  name: string;
-  isComplete: boolean;
-}
+
 //can have multiple export consts in a file, but only one default
 export const SubmitBtn = () => {
   const { pending } = useFormStatus();
@@ -40,7 +37,7 @@ const TodoForm = () => {
     //empty square brackets means it only runs once
   );
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     if (!task.trim()) return;
 
