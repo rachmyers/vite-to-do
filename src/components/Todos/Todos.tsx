@@ -2,12 +2,7 @@ import { type Dispatch, type SetStateAction } from "react";
 import DeleteForm from "../DeleteForm.jsx";
 import EditButton from "../EditButton.jsx";
 import styles from "./Todos.module.css";
-import { type TodosType } from "../../types/TodoType.js";
-
-type TodosProps = {
-  tasks: TodosType[];
-  setTasks: Dispatch<SetStateAction<TodosType[]>>;
-};
+import { type TodosProps, type TodosType } from "../../types/TodoType.js";
 
 const Todos = ({ tasks, setTasks }: TodosProps) => {
   const onDelete = (id: number) => {

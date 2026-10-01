@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { updateTask } from "../actions/actions";
+import { updateTask } from "../actions/actions.js";
 //import PropTypes from 'index';
 import { useDispatch } from "react-redux";
 import checkbox from "daisyui/components/checkbox";
+import { type EditTodosForm } from "../types/TodoType.ts";
 
-const EditForm = ({ taskProp, setTasks, setShowEditForm }) => {
+const EditForm = ({ taskProp, setTasks, setShowEditForm }: EditTodosForm) => {
   const { id, name, isComplete } = taskProp;
   //if (!task) {return;}
   //const {id, content, completed} = task;
