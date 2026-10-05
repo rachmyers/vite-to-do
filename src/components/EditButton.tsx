@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import EditForm from "./EditForm.jsx";
 import { type EditTodosProps } from "../types/TodoType.js";
 
-const EditButton = ({ task, setTask }: EditTodosProps) => {
+const EditButton = ({ task, setTasks }: EditTodosProps) => {
   const [showEditForm, setShowEditForm] = useState(false);
   if (!task) {
     return;
@@ -13,7 +13,7 @@ const EditButton = ({ task, setTask }: EditTodosProps) => {
   return showEditForm ? (
     <EditForm
       taskProp={task}
-      setTasks={setTask}
+      setTasks={setTasks}
       setShowEditForm={setShowEditForm}
     />
   ) : (

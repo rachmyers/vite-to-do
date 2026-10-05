@@ -1,27 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { updateTask } from "../actions/actions.js";
-//import PropTypes from 'index';
-import { useDispatch } from "react-redux";
-import checkbox from "daisyui/components/checkbox";
-import { type EditTodosForm } from "../types/TodoType.ts";
+import { type EditTodosForm } from "../types/TodoType";
 
 const EditForm = ({ taskProp, setTasks, setShowEditForm }: EditTodosForm) => {
-  const { id, name, isComplete } = taskProp;
-  //if (!task) {return;}
-  //const {id, content, completed} = task;
-  //const [tasks, setTasks] = useState([])
   const [task, setTask] = useState(taskProp);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTask({
       ...task,
       [e.target.name]:
         e.target.type === "checkbox" ? e.target.checked : e.target.value,
     });
   };
-  const handleEdit = async (e) => {
-    //added this line to prevent default behavior on a form-
-    //keeps page from refreshing
+
+  const handleEdit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!task.name.trim()) return;
 

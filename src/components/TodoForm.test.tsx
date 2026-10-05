@@ -17,13 +17,18 @@ import {
   updateTask,
   deleteTask,
 } from "../actions/actions.js";
-import TodoForm from "./TodoForm";
+import TodoForm from "./TodoForm.js";
+
+const mockedCreateTask = vi.mocked(createTask);
+const mockedGetAllTasks = vi.mocked(getAllTasks);
+const mockedUpdateTask = vi.mocked(updateTask);
+const mockedDeleteTask = vi.mocked(deleteTask);
 
 describe("TodoForm", () => {
   beforeEach(() => {
     //resets all mocks before each test run
     vi.clearAllMocks();
-    getAllTasks.mockResolvedValueOnce([]);
+    mockedGetAllTasks.mockResolvedValueOnce([]);
   });
   it("Should render submit form button", () => {
     render(<TodoForm />);
@@ -32,7 +37,7 @@ describe("TodoForm", () => {
   it("Should add and show a new task", async () => {
     const taskTitle = "testTask";
     const mockNewTask = { id: 1, name: taskTitle, isComplete: false };
-    createTask.mockResolvedValueOnce(mockNewTask);
+    mockedCreateTask.mockResolvedValueOnce(mockNewTask);
     render(<TodoForm />);
     const textInput = screen.getByPlaceholderText("type here");
     await userEvent.type(textInput, taskTitle);
@@ -49,8 +54,8 @@ describe("TodoForm", () => {
     const textInput = "buy milk";
     const mockNewTask = { id: 1, name: taskTitle, isComplete: false };
     const mockUpdateTask = { id: 1, name: textInput, isComplete: true };
-    createTask.mockResolvedValueOnce(mockNewTask);
-    updateTask.mockResolvedValueOnce(mockUpdateTask);
+    mockedCreateTask.mockResolvedValueOnce(mockNewTask);
+    mockedUpdateTask.mockResolvedValueOnce(mockUpdateTask);
     render(<TodoForm />);
     const textInputPlaceholder = screen.getByPlaceholderText("type here");
     await userEvent.type(textInputPlaceholder, taskTitle);
@@ -106,7 +111,7 @@ describe("TodoForm", () => {
 
     //mockUpdateTask is the argument that should be passed to the UI
     await waitFor(() =>
-      expect(updateTask).toHaveBeenCalledExactlyOnceWith(mockUpdateTask),
+      expect(mockedUpdateTask).toHaveBeenCalledExactlyOnceWith(mockUpdateTask),
     );
 
     //assert that updateTask was called and that the api response looks like mockUpdateTask
@@ -121,9 +126,9 @@ describe("TodoForm", () => {
     const taskTitle = "testTask";
     const id = 1;
     const mockNewTask = [{ id, name: taskTitle, isComplete: false }]; // Return an array
-    getAllTasks.mockReset();
-    getAllTasks.mockResolvedValueOnce(mockNewTask); // Mock getAllTasks to return an array
-    deleteTask.mockResolvedValueOnce();
+    mockedGetAllTasks.mockReset();
+    mockedGetAllTasks.mockResolvedValueOnce(mockNewTask); // Mock getAllTasks to return an array
+    mockedDeleteTask.mockResolvedValueOnce(undefined);
     render(<TodoForm />);
 
     // Wait for the task to appear on the screen
@@ -136,7 +141,7 @@ describe("TodoForm", () => {
     expect(deleteButton).toBeInTheDocument();
     await userEvent.click(deleteButton);
     await waitFor(() => {
-      expect(deleteTask).toHaveBeenCalledWith(id);
+      expect(mockedDeleteTask).toHaveBeenCalledWith(id);
     });
 
     // Verify that the task is no longer displayed

@@ -1,104 +1,105 @@
-import { getAllTasks, createTask, updateTask, deleteTask } from "../actions";
+import { getAllTasks, createTask, updateTask } from "../actions";
+import type { TodosType } from "../../types/TodoType.js";
 import { vi, describe, it, expect, beforeEach } from "vitest";
 
-//run using npm test
-//getAllTasks test
-global.fetch = vi.fn();
+const fetchMock = vi.fn();
+globalThis.fetch = fetchMock as typeof fetch;
+
 describe("getAllTasks", () => {
-  //Resets mock function
   beforeEach(() => {
-    fetch.mockClear();
+    fetchMock.mockClear();
   });
+
   it("Return array of tasks", async () => {
-    //arrange
-    const mockResponseData = [{ id: 1, name: "test", isComplete: false }];
+    const mockResponseData: TodosType[] = [
+      { id: 1, name: "test", isComplete: false },
+    ];
     const mockResponse = {
       ok: true,
       status: 200,
       json: async () => mockResponseData,
     };
-    fetch.mockResolvedValue(mockResponse);
-    //act
+
+    fetchMock.mockResolvedValue(mockResponse);
+
     const result = await getAllTasks();
-    //assert
-    expect(result).toBe(mockResponseData);
+
+    expect(result).toEqual(mockResponseData);
   });
 
   it("Should throw error if response not OK", async () => {
-    //arrange
     const mockResponse = {
       ok: false,
       status: 500,
     };
-    fetch.mockResolvedValue(mockResponse);
-    //act
-    //const result = await getAllTasks();
-    //assert
+
+    fetchMock.mockResolvedValue(mockResponse);
 
     await expect(getAllTasks()).rejects.toThrowError();
   });
 });
 
-//createTask test
 describe("createTask", () => {
   beforeEach(() => {
-    fetch.mockClear();
+    fetchMock.mockClear();
   });
+
   it("Create a task", async () => {
-    //arrange
-    const mockNewTask = { id: 1, name: "test", isComplete: false };
+    const mockNewTask: TodosType = { id: 1, name: "test", isComplete: false };
     const mockResponse = {
       ok: true,
       status: 200,
       json: async () => mockNewTask,
     };
-    fetch.mockResolvedValue(mockResponse);
-    //act
-    const result = await createTask(mockNewTask);
-    //assert
-    expect(result).toBe(mockNewTask);
+
+    fetchMock.mockResolvedValue(mockResponse);
+
+    const result = await createTask("test");
+
+    expect(result).toEqual(mockNewTask);
   });
 
   it("Should throw error if response not OK", async () => {
-    //arrange
-    const mockNewTask = { id: 1, name: "test", isComplete: false };
     const mockResponse = {
       ok: false,
       status: 500,
     };
-    fetch.mockResolvedValue(mockResponse);
-    await expect(createTask(mockNewTask)).rejects.toThrowError();
+
+    fetchMock.mockResolvedValue(mockResponse);
+
+    await expect(createTask("test")).rejects.toThrowError();
   });
 });
 
-//updateTask test
 describe("updateTask", () => {
   beforeEach(() => {
-    fetch.mockClear();
+    fetchMock.mockClear();
   });
+
   it("Update a task", async () => {
-    //arrange
-    const mockTask = [{ id: 1, name: "test", isComplete: false }];
+    const mockTask: TodosType = { id: 1, name: "test", isComplete: false };
     const mockResponse = {
       ok: true,
       status: 200,
       json: async () => mockTask,
     };
-    fetch.mockResolvedValue(mockResponse);
-    //act
+
+    fetchMock.mockResolvedValue(mockResponse);
+
     const result = await updateTask(mockTask);
-    //assert
-    expect(result).toBe(mockTask);
+
+    expect(result).toEqual(mockTask);
   });
 
   it("Should throw error if response not OK", async () => {
-    //arrange
-    const mockTask = [{ id: 1, name: "test", isComplete: false }];
+    const mockTask: TodosType = { id: 1, name: "test", isComplete: false };
     const mockResponse = {
       ok: false,
       status: 500,
     };
-    fetch.mockResolvedValue(mockResponse);
+
+    fetchMock.mockResolvedValue(mockResponse);
+
     await expect(updateTask(mockTask)).rejects.toThrowError();
   });
 });

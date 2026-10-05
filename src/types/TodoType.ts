@@ -13,7 +13,7 @@ export type TodosProps = {
 
 export type EditTodosProps = {
   task: TodosType;
-  setTask: Dispatch<SetStateAction<TodosType[]>>;
+  setTasks: Dispatch<SetStateAction<TodosType[]>>;
 };
 
 export type EditTodosForm = {
